@@ -1,4 +1,5 @@
-import { QuoteRow } from '../hooks/useQuotes'
+import type { QuoteRow } from '../hooks/useQuotes'
+
 
 interface Props {
   data: QuoteRow[]

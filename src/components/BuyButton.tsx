@@ -6,7 +6,8 @@ const ROUTER_ADDRESS = '0x0000000000000000000000000000000000000000'
 const WETH = '0x5300000000000000000000000000000000000004'
 
 const abi = [
-  'function swapVia0x(bytes calldata swapCalldata, address buyToken, uint256 minOut) external payable'
+  'function swapVia0x(bytes calldata swapCalldata, address buyToken, uint256 minOut) external payable',
+
 ]
 
 interface Props {
@@ -21,7 +22,8 @@ export const BuyButton = ({ row }: Props) => {
   return (
     <Web3Button
       contract={contract}
-      action={async (c) => {
+      action={async (c: any) => {
+
         await c.call('swapVia0x', [row.data, WETH, BigInt(row.buyAmount)])
       }}
     >
