@@ -1,13 +1,20 @@
-import { Web3Button, useContract } from 'thirdweb/react'
-import { QuoteRow } from '../hooks/useQuotes'
-import { ethers } from 'ethers'
+import { TransactionButton } from 'thirdweb/react'
+import { prepareContractCall, getContract } from 'thirdweb'
+import { sepolia } from 'thirdweb/chains'
+import { client } from '../lib/thirdwebClient'
 
-const ROUTER_ADDRESS = '0x0000000000000000000000000000000000000000'
-const WETH = '0x5300000000000000000000000000000000000004'
+  const contract = getContract({ client, chain: sepolia, address: ROUTER_ADDRESS, abi })
 
-const abi = [
-  'function swapVia0x(bytes calldata swapCalldata, address buyToken, uint256 minOut) external payable',
-
+    <TransactionButton
+      client={client}
+      transaction={() =>
+        prepareContractCall({
+          contract,
+          method: 'swapVia0x',
+          params: [row.data, WETH, BigInt(row.buyAmount)],
+        })
+      }
+    </TransactionButton>
 ]
 
 interface Props {

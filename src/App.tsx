@@ -27,7 +27,7 @@ function InnerApp() {
 
 function App() {
   return (
-    <ThirdwebProvider activeChain="sepolia" clientId="placeholder">
+    <ThirdwebProvider>
       <QueryClientProvider client={queryClient}>
         <InnerApp />
       </QueryClientProvider>
