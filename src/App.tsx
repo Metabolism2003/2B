@@ -1,35 +1,39 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { ThirdwebProvider } from 'thirdweb/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './App.css'
+import { TradeInput } from './components/TradeInput'
+import { PriceTable } from './components/PriceTable'
+import { Header } from './components/Header'
+import { BuyButton } from './components/BuyButton'
+import { useQuotes } from './hooks/useQuotes'
 
-function App() {
-  const [count, setCount] = useState(0)
+const queryClient = new QueryClient()
+
+function InnerApp() {
+  const [amount, setAmount] = useState(100)
+  const { data = [], dataUpdatedAt } = useQuotes(amount)
+  const best = data[0]
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <Header />
+      <TradeInput amount={amount} setAmount={setAmount} />
+      <PriceTable data={data} updatedAt={dataUpdatedAt} />
+      <BuyButton row={best} />
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <ThirdwebProvider activeChain="sepolia">
+      <QueryClientProvider client={queryClient}>
+        <InnerApp />
+      </QueryClientProvider>
+    </ThirdwebProvider>
   )
 }
 
 export default App
+
