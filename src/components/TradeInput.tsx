@@ -1,4 +1,5 @@
-import type { Dispatch, SetStateAction, ChangeEvent } from 'react'
+import { Dispatch, SetStateAction } from 'react'
+
 
 interface Props {
   amount: number
@@ -15,6 +16,7 @@ export const TradeInput = ({ amount, setAmount }: Props) => {
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setAmount(Number(e.target.value))
         }
+
         min={0}
       />
     </div>

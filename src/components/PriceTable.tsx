@@ -1,5 +1,6 @@
 import type { QuoteRow } from '../hooks/useQuotes'
 
+
 interface Props {
   data: QuoteRow[]
   updatedAt: number | undefined
